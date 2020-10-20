@@ -1,0 +1,74 @@
+<div class="row">
+
+  <!-- FORMULARIO para introducir datos -->
+  <div class=".col-lg-4">
+    <div class="card">
+      <div class="card-body p-4">
+
+        <!-- FORM -->
+        <form #employeeForm="ngForm" (ngSubmit)="addEmployee(employeeForm)">
+          <!-- Id interno db, podriamos poner el identif de user -->
+          <!-- Faltaria poner contraseña escondida -->
+          <input type="hidden" name="_id" #_id="ngModel" [(ngModel)]="employeeService.selectedEmployee._id">
+
+          <div class="form-group">
+            <div class="input-field col-l12">
+            <input type="text" name="identif" #name="ngModel" [(ngModel)]="employeeService.selectedEmployee.identif"
+                placeholder="Introduce tu ID" class="form-control">
+              </div>
+          </div>
+
+          <div class="form-group">
+            <div class="input-field col-s12">
+              <input type="text" name="fullName" #name="ngModel" [(ngModel)]="employeeService.selectedEmployee.fullName"
+                placeholder="Introduce tu nombre" class="form-control">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <input type="text" name="email" #name="ngModel" [(ngModel)]="employeeService.selectedEmployee.email"
+              placeholder="Introduce tu email" class="form-control">
+          </div>
+
+          <div class="form-group">
+            <div class="input-field col-s20">
+              <input type="text" name="usernamePassword" #name="ngModel" [(ngModel)]="employeeService.selectedEmployee.usernamePassword"
+                value="0" placeholder="Usuario y contraseña" class="form-control">
+            </div>
+          </div>
+
+          <button class="btn btn-primary mr-2" (click)="resetForm(employeeForm)">Clean</button>
+          <button class="btn btn-secondary">Save</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- TABLA que se irá llenando con los datos -->
+<div class="col-lg-8-30px">
+  <table class="table table-striped">
+    <thead>
+      <th>Identif</th>
+      <th>Nombre y Apellidos</th>
+      <th>usuarioContraseña</th>
+      <th>Dir. email</th>
+    </thead>
+    <tbody>
+      <tr *ngFor="let employee of employeeService.employees">
+        <td>{{ employee.identif }}</td>
+        <td>{{ employee.fullName }}</td>
+        <td>{{ employee.usernamePassword }}</td>
+        <td>{{ employee.email }}</td>
+        <td>
+          <a (click)="editEmployee(employee)" class="btn btn-secondary btn-sm">
+            <i class="material-icons">edit</i>
+          </a>
+          <a (click)="deleteEmployee(employee._id, employeeForm)" class="btn btn-danger btn-sm">
+            <i class="material-icons">delete</i>
+          </a>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+</div>
